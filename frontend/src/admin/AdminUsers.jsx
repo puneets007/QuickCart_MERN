@@ -1,0 +1,62 @@
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+
+const formatDateTime = (value) => new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
+
+const AdminUsers = () => {
+  const { user } = useContext(AuthContext);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await fetch('/api/auth/users', {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      const data = await res.json();
+      setUsers(Array.isArray(data) ? data : []);
+    };
+    fetchUsers();
+  }, [user]);
+
+  return (
+    <div style={containerStyle}>
+      <h2 style={{ color: '#2563EB', marginBottom: '20px' }}>User Directory</h2>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={tableStyle}>
+          <thead>
+            <tr style={rowStyle}>
+              <th style={thStyle}>ID</th>
+              <th style={thStyle}>NAME</th>
+              <th style={thStyle}>EMAIL</th>
+              <th style={thStyle}>ROLE</th>
+              <th style={thStyle}>JOINED ON</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(u => (
+              <tr key={u._id} style={rowStyle}>
+                <td style={tdStyle}>{u._id.substring(0, 8)}...</td>
+                <td style={tdStyle}>{u.name}</td>
+                <td style={tdStyle}>{u.email}</td>
+                <td style={tdStyle}>
+                  <span style={{ background: u.role === 'admin' ? 'rgba(29,78,216,0.2)' : 'rgba(22,163,74,0.2)', color: u.role === 'admin' ? '#2563EB' : '#16A34A', padding: '4px 8px', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                    {u.role.toUpperCase()}
+                  </span>
+                </td>
+                <td style={tdStyle}>{formatDateTime(u.createdAt)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+const containerStyle = { maxWidth: '1200px', margin: '40px auto', padding: '30px', background: '#FFFFFF', borderRadius: '12px', border: '1px solid rgba(15,23,42,0.08)', color: '#0F172A' };
+const tableStyle = { width: '100%', borderCollapse: 'collapse' };
+const rowStyle = { borderBottom: '1px solid rgba(15,23,42,0.12)' };
+const thStyle = { padding: '15px', textAlign: 'left', color: '#64748B', fontSize: '0.9rem' };
+const tdStyle = { padding: '15px', textAlign: 'left' };
+
+export default AdminUsers;
