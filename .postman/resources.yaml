@@ -1,7 +1,0 @@
-# Use this workspace to collaborate
-workspace:
-  id: 3ec67752-f0c6-494a-8429-8130975d8462
-
-localResources:
-  collections:
-    - ../ShopNest_Postman_Collection.json
