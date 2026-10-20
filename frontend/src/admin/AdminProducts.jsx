@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { apiUrl } from '../config/api';
 
 const AdminProducts = () => {
   const { user } = useContext(AuthContext);
@@ -8,7 +9,7 @@ const AdminProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch('/api/products');
+      const res = await fetch(apiUrl('/api/products'));
       const data = await res.json();
       setProducts(Array.isArray(data) ? data : []);
     };
@@ -17,7 +18,7 @@ const AdminProducts = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you strictly sure you want to delete this?')) {
-      const res = await fetch(`/api/products/${id}`, {
+      const res = await fetch(apiUrl(`/api/products/${id}`), {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${user.token}` }
       });
@@ -51,7 +52,7 @@ const AdminProducts = () => {
               <tr key={product._id} style={rowStyle}>
                 <td style={tdStyle}>{product._id.substring(0, 8)}...</td>
                 <td style={tdStyle}>{product.name}</td>
-                <td style={tdStyle}>₹{product.price.toFixed(2)}</td>
+                <td style={tdStyle}>ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹{product.price.toFixed(2)}</td>
                 <td style={tdStyle}>{product.category}</td>
                 <td style={tdStyle}>{product.stock}</td>
                 <td style={tdStyle}>

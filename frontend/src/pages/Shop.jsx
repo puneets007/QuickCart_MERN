@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import '../styles/product.css';
+import { apiUrl } from '../config/api';
 
 const PRODUCTS_PER_PAGE = 8;
 const emptyPagination = {
@@ -30,7 +31,7 @@ const Shop = () => {
           params.set('search', search.trim());
         }
 
-        const res = await fetch(`/api/products?${params.toString()}`);
+        const res = await fetch(apiUrl(`/api/products?${params.toString()}`));
         if (!res.ok) {
           throw new Error('Unable to load products');
         }

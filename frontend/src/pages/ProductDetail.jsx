@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
 import { AuthContext } from '../context/AuthContext';
 import '../styles/product.css';
+import { apiUrl } from '../config/api';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`/api/products/${id}`);
+        const res = await fetch(apiUrl(`/api/products/${id}`));
         const data = await res.json();
         setProduct(data);
       } catch (error) {
@@ -68,7 +69,7 @@ const ProductDetail = () => {
           
           <h2 style={{ fontSize: '2.8rem', marginBottom: '10px' }}>{product.name}</h2>
 
-          <p className="detail-price" style={{ fontSize: '2.5rem', margin: '15px 0' }}>Ã¢â€šÂ¹{product.price.toFixed(2)}</p>
+          <p className="detail-price" style={{ fontSize: '2.5rem', margin: '15px 0' }}>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¹{product.price.toFixed(2)}</p>
 
           {/* Description */}
           <div style={{ marginBottom: '25px' }}>
@@ -84,7 +85,7 @@ const ProductDetail = () => {
           </div>
           
           <p style={{ marginTop: '20px', color: product.stock > 0 ? '#16A34A' : '#ef4444', fontWeight: '600' }}>
-            {product.stock > 0 ? `Ã¢â€”Â In Stock (${product.stock} units available)` : `Ã¢â€”Â Temporarily Out of Stock`}
+            {product.stock > 0 ? `ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â In Stock (${product.stock} units available)` : `ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Temporarily Out of Stock`}
           </p>
 
         </div>
