@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { apiUrl } from '../config/api';
 
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -16,7 +15,7 @@ const AdminDashboard = () => {
 
     const fetchStats = async () => {
       try {
-        const res = await fetch(apiUrl('/api/analytics'), {
+        const res = await fetch('/api/analytics', {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         const data = await res.json();
@@ -78,7 +77,7 @@ const AdminDashboard = () => {
           </div>
           <div style={cardStyle}>
             <h4 style={{ color: '#64748B', fontSize: '1rem' }}>Total Revenue</h4>
-            <div style={numberStyle}>ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹{stats.totalRevenue.toFixed(2)}</div>
+            <div style={numberStyle}>₹{stats.totalRevenue.toFixed(2)}</div>
           </div>
         </div>
       ) : (
@@ -89,9 +88,9 @@ const AdminDashboard = () => {
         <h3 style={{ marginBottom: '25px', color: '#2563EB' }}>Administrative Controls</h3>
         <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
           <button className="btn" onClick={() => navigate('/admin/add-product')}>+ Add Product</button>
-          <button className="btn" onClick={() => navigate('/admin/products')}>ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â¦ Manage Products</button>
-          <button className="btn" onClick={() => navigate('/admin/orders')}>ÃƒÂ°Ã…Â¸Ã…Â¡Ã…Â¡ Manage Orders</button>
-          <button className="btn" onClick={() => navigate('/admin/users')}>ÃƒÂ°Ã…Â¸Ã¢â‚¬ËœÃ‚Â¥ Users Directory</button>
+          <button className="btn" onClick={() => navigate('/admin/products')}>📦 Manage Products</button>
+          <button className="btn" onClick={() => navigate('/admin/orders')}>🚚 Manage Orders</button>
+          <button className="btn" onClick={() => navigate('/admin/users')}>👥 Users Directory</button>
         </div>
       </div>
     </div>

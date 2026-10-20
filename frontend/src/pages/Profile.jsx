@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { apiUrl } from '../config/api';
 
 const formatDateTime = (value) => new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 const formatAmount = (value) => Number(value || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -19,7 +18,7 @@ const Profile = () => {
     }
     const fetchMyOrders = async () => {
       try {
-        const res = await fetch(apiUrl('/api/orders/myorders'), {
+        const res = await fetch('/api/orders/myorders', {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         const data = await res.json();

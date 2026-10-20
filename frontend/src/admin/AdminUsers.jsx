@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { apiUrl } from '../config/api';
 
 const formatDateTime = (value) => new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 
@@ -10,7 +9,7 @@ const AdminUsers = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await fetch(apiUrl('/api/auth/users'), {
+      const res = await fetch('/api/auth/users', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       const data = await res.json();

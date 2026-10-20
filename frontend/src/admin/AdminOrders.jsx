@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { apiUrl } from '../config/api';
 
 const formatDateTime = (value) => new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 
@@ -10,7 +9,7 @@ const AdminOrders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const res = await fetch(apiUrl('/api/orders'), {
+      const res = await fetch('/api/orders', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       const data = await res.json();
@@ -20,7 +19,7 @@ const AdminOrders = () => {
   }, [user]);
 
   const updateStatus = async (id, status) => {
-    const res = await fetch(apiUrl(`/api/orders/${id}/status`), {
+    const res = await fetch(`/api/orders/${id}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
       body: JSON.stringify({ status })
@@ -51,7 +50,7 @@ const AdminOrders = () => {
               <tr key={order._id} style={rowStyle}>
                 <td style={tdStyle}>{order._id.substring(0, 8)}...</td>
                 <td style={tdStyle}>{order.userId?.name || 'Deleted User'}</td>
-                <td style={tdStyle}>ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹{order.totalAmount.toFixed(2)}</td>
+                <td style={tdStyle}>₹{order.totalAmount.toFixed(2)}</td>
                 <td style={tdStyle}>{formatDateTime(order.createdAt)}</td>
                 <td style={tdStyle}>{order.deliveredAt ? formatDateTime(order.deliveredAt) : 'Not delivered'}</td>
                 <td style={tdStyle}>

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { clearCart } from '../redux/cartSlice';
-import { apiUrl } from '../config/api';
 
 const Checkout = () => {
   const { user } = useContext(AuthContext);
@@ -19,7 +18,7 @@ const Checkout = () => {
 
   const handlePayment = async () => {
     try {
-      const orderRes = await fetch(apiUrl('/api/payment/order'), {
+      const orderRes = await fetch('/api/payment/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: totalPrice })
@@ -44,13 +43,13 @@ const Checkout = () => {
         description: 'Test Transaction',
         order_id: orderData.id,
         handler: async function (response) {
-          const verifyRes = await fetch(apiUrl('/api/payment/verify'), {
+          const verifyRes = await fetch('/api/payment/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(response)
           });
           if (verifyRes.ok) {
-            const saveOrderRes = await fetch(apiUrl('/api/orders'), {
+            const saveOrderRes = await fetch('/api/orders', {
               method: 'POST',
               headers: { 
                 'Content-Type': 'application/json',
@@ -92,7 +91,7 @@ const Checkout = () => {
   };
 
   const bypassPayment = async () => {
-    const saveOrderRes = await fetch(apiUrl('/api/orders'), {
+    const saveOrderRes = await fetch('/api/orders', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -133,7 +132,7 @@ const Checkout = () => {
           <input type="text" placeholder="Postal Code" required value={address.postalCode} onChange={(e) => setAddress({...address, postalCode: e.target.value})} />
           <input type="text" placeholder="Country" required value={address.country} onChange={(e) => setAddress({...address, country: e.target.value})} />
           <div className="checkout-summary">
-            <h4>Total to Pay: ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹{totalPrice.toFixed(2)}</h4>
+            <h4>Total to Pay: ₹{totalPrice.toFixed(2)}</h4>
             <button type="submit" className="btn">Pay Now</button>
           </div>
         </form>
