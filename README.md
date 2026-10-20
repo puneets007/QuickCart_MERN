@@ -1,3 +1,4 @@
+<!-- <<<<<<< HEAD
 <div align="center">
   <img src="https://cdn-icons-png.flaticon.com/512/3514/3514491.png" alt="ShopNest Logo" width="80" />
   <h1>ShopNest - Full-Stack MERN E-Commerce App</h1>
@@ -74,3 +75,6 @@ The server codebase features a seamless fallback mechanic leveraging Node `proce
 ## 📄 Postman Documentations
 This repository includes a fully-scaffolded API testing toolkit: **`ShopNest_Postman_Collection.json`**. 
 Simply Import this file directly into the local Postman IDE. It features variables like `{{token}}` properly mapped to effortlessly check protected admin/user/order payloads. Happy coding!
+=======
+# QuickCart_MERN
+>>>>>>> 168ea3a5bed054d2aace832ff0e17f37ac1dec85 -->
